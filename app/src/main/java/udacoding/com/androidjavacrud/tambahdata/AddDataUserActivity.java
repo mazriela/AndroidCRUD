@@ -17,6 +17,7 @@ import udacoding.com.androidjavacrud.MainActivity;
 import udacoding.com.androidjavacrud.R;
 import udacoding.com.androidjavacrud.tambahdata.model.ResponseTambahData;
 import udacoding.com.androidjavacrud.network.NetworkClient;
+import udacoding.com.androidjavacrud.tampildata.ShowDataUserActivity;
 
 public class AddDataUserActivity extends AppCompatActivity {
 
@@ -72,7 +73,7 @@ public class AddDataUserActivity extends AppCompatActivity {
                         String message = response.body().getMessage();
 
                         if(status){
-                            startActivity(new Intent(AddDataUserActivity.this, MainActivity.class));
+                            startActivity(new Intent(AddDataUserActivity.this, ShowDataUserActivity.class));
                             Toast.makeText(AddDataUserActivity.this, message, Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(AddDataUserActivity.this, message, Toast.LENGTH_SHORT).show();
