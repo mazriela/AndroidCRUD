@@ -18,6 +18,7 @@ import udacoding.com.androidjavacrud.tampildata.model.DataItemTampiUser;
 public class AdapterTampilData extends RecyclerView.Adapter<AdapterTampilData.ViewHolder> {
     Context context;
     List<DataItemTampiUser> dataItemList;
+    onItemClick onItemClick ;
 
 
     @NonNull
@@ -29,9 +30,10 @@ public class AdapterTampilData extends RecyclerView.Adapter<AdapterTampilData.Vi
     }
 
     //Constructor
-    public AdapterTampilData(Context context, List<DataItemTampiUser> dataItem) {
+    public AdapterTampilData(Context context, List<DataItemTampiUser> dataItem,onItemClick onItemClick) {
         this.context = context;
         this.dataItemList = dataItem;
+        this.onItemClick = onItemClick;
     }
 
     @Override
@@ -42,6 +44,12 @@ public class AdapterTampilData extends RecyclerView.Adapter<AdapterTampilData.Vi
         viewHolder.tvEmailUser.setText(dataItemTampiUser.getEmailUser());
 
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.item(dataItemTampiUser);
+            }
+        });
 
 
     }
@@ -62,5 +70,8 @@ public class AdapterTampilData extends RecyclerView.Adapter<AdapterTampilData.Vi
 
 
         }
+    }
+    public interface onItemClick{
+        void item(DataItemTampiUser data);
     }
 }

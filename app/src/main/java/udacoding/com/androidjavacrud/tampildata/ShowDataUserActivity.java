@@ -18,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import udacoding.com.androidjavacrud.R;
+import udacoding.com.androidjavacrud.detaildata.DetailDataActivity;
 import udacoding.com.androidjavacrud.network.NetworkClient;
 import udacoding.com.androidjavacrud.tambahdata.AddDataUserActivity;
 import udacoding.com.androidjavacrud.tampildata.adapter.AdapterTampilData;
@@ -50,15 +51,27 @@ public class ShowDataUserActivity extends AppCompatActivity {
         NetworkClient.service.tampil_user().enqueue(new Callback<ResponseTampilData>() {
             @Override
             public void onResponse(Call<ResponseTampilData> call, Response<ResponseTampilData> response) {
-                String message = response.body().getMessage();
                 if (response.isSuccessful()) {
-                    dataItemList = response.body().getData();
-                    rvListDataUser.setLayoutManager(new LinearLayoutManager(ShowDataUserActivity.this, LinearLayoutManager.VERTICAL, false));
-                    adapterTampilData = new AdapterTampilData(ShowDataUserActivity.this, dataItemList);
-                    rvListDataUser.setAdapter(adapterTampilData);
-                } else {
-                    Toast.makeText(ShowDataUserActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
+                    String message = response.body().getMessage();
+                    Boolean status = response.body().isStatus();
+
+                    if(status){
+                        dataItemList = response.body().getData();
+                        rvListDataUser.setLayoutManager(new LinearLayoutManager(ShowDataUserActivity.this, LinearLayoutManager.VERTICAL, false));
+                        adapterTampilData = new AdapterTampilData(ShowDataUserActivity.this, dataItemList, new AdapterTampilData.onItemClick() {
+                            @Override
+                            public void item(DataItemTampiUser data) {
+                                Intent intent = new Intent(getApplicationContext(), DetailDataActivity.class);
+                                intent.putExtra("data_user", data);
+                                startActivity(intent);
+                            }
+                        });
+                        rvListDataUser.setAdapter(adapterTampilData);
+                    } else {
+                        Toast.makeText(ShowDataUserActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                    }
+
             }
 
             @Override

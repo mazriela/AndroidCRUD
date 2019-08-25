@@ -5,6 +5,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import udacoding.com.androidjavacrud.detaildata.model.ResponseHapushData;
 import udacoding.com.androidjavacrud.tambahdata.model.ResponseTambahData;
 import udacoding.com.androidjavacrud.tampildata.model.ResponseTampilData;
 
@@ -21,4 +22,10 @@ public interface RestApi {
     );
     @GET("ShowDataUser")
     Call<ResponseTampilData> tampil_user();
+
+    @FormUrlEncoded
+    @POST("DeleteDatauser")
+    Call<ResponseHapushData> hapus_user(
+            @Field("id_user") String idUser
+    );
 }
