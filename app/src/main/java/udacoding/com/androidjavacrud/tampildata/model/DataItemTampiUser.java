@@ -2,7 +2,9 @@ package udacoding.com.androidjavacrud.tampildata.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataItemTampiUser {
+import java.io.Serializable;
+
+public class DataItemTampiUser implements Serializable {
 
 	@SerializedName("email_user")
 	private String emailUser;
